@@ -6,6 +6,8 @@ package pa4;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import javax.swing.tree.TreeNode;
+
 class BSTTest {
 
     @Test
@@ -53,5 +55,122 @@ class BSTTest {
         assertEquals(3, bst.root.left.value);
         assertEquals(null, bst.root.left.right);
     }
+
+    @Test
+    void testinOrderLeft(){
+        BST bst = new BST();
+        bst.insert(10);
+        bst.insert(8);
+        bst.insert(6);
+        bst.insert(4);
+        bst.insert(2);
+        bst.insert(1);
+
+        assertEquals("1 2 4 6 8 10 ", bst.inOrder());
+    }
+
+    @Test
+    void testinOrderRight(){
+        BST bst = new BST();
+        bst.insert(1);
+        bst.insert(2);
+        bst.insert(4);
+        bst.insert(6);
+        bst.insert(8);
+        bst.insert(10);
+
+        assertEquals("1 2 4 6 8 10 ", bst.inOrder());
+
+    }
+
+    @Test
+    void testinOrderDuplicate(){
+        BST bst = new BST();
+        bst.insert(1);
+        bst.insert(1);
+        bst.insert(4);
+        bst.insert(6);
+        bst.insert(6);
+        bst.insert(10);
+
+        assertEquals("1 1 4 6 6 10 ", bst.inOrder());
+
+    }
+    
+
+    @Test
+    void testsortedAraytoBST(){
+        BST bst = new BST();
+        int[] arr = {2,3,4,5,6,7};
+        bst.root = BST.sortedArrayToBST(arr);
+        assertEquals("2 3 4 5 6 7 ", bst.inOrder());
+        bst.delete(2);
+        assertEquals("3 4 5 6 7 ", bst.inOrder());
+
+
+    }
+
+    @Test
+    void testsortedAraytoBST0(){
+        BST bst = new BST();
+        int[] arr = {};
+        bst.root = BST.sortedArrayToBST(arr);
+        assertEquals("", bst.inOrder());
+
+
+    }
+
+    @Test
+    void testLowestCommonAncestor() {
+        BST bst = new BST();
+        bst.insert(5);
+        bst.insert(3);
+        bst.insert(7);
+        bst.insert(2);
+        bst.insert(4);
+        bst.insert(6);
+        assertEquals("2 3 4 5 6 7 ", bst.inOrder());
+        int lcaNode = bst.lowestCommonAncestor(6, 4).value;
+        assertEquals(5, lcaNode);
+        int lca2 = bst.lowestCommonAncestor(2, 3).value;
+        assertEquals(3, lca2);
+
+    }
+
+    @Test
+    void testLowestCommonAncestor2() {
+        BST bst = new BST();
+        bst.insert(5);
+        bst.insert(3);
+        bst.insert(7);
+        bst.insert(2);
+        bst.insert(4);
+        bst.insert(6);
+        assertEquals("2 3 4 5 6 7 ", bst.inOrder());
+        int lcaNode = bst.lowestCommonAncestor(2, 3).value;
+        assertEquals(3, lcaNode); 
+    }
+
+
+    @Test
+    void testUpdate() {
+        BST bst = new BST();
+        bst.insert(5);
+        bst.insert(3);
+        bst.insert(7);
+        bst.insert(2);
+        bst.insert(4);
+        bst.insert(6);
+        assertEquals("2 3 4 5 6 7 ", bst.inOrder());
+        bst.update(5,6);
+        assertEquals("2 3 4 6 6 7 ", bst.inOrder());
+        bst.update(2,8);
+        assertEquals("3 4 6 6 7 8 ", bst.inOrder());
+
+        
+    }
+
+
+
 
 }
